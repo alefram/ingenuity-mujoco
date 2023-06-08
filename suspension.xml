@@ -1,10 +1,69 @@
-<mujoco>
-	<worldbody>
-        <light diffuse=".5 .5 .5" pos="0 0 3" dir="0 0 -1"/>
-		<geom type="plane" size="1 1 0.1" rgba=".9 0 0 1"/>
-		<body pos="0 0 1">
-			<joint type="free"/>
-			<geom type="box" size=".1 .2 .3" rgba="0 .9 0 1"/>
-		</body>
-	</worldbody>
+<mujoco model="f1">
+    <option timestep="0.005" solver="CG" iterations="30" tolerance="1e-6"/>
+    <size memory="20M"/>
+
+    <visual>
+        <map force="0.1" zfar="30"/>
+        <rgba haze="0.15 0.25 0.35 1"/>
+        <quality shadowsize="2048"/>
+        <global offwidth="800" offheight="800"/>
+    </visual>
+
+    <asset>
+        <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="512"/>
+        <texture name="plane" type="2d" builtin="checker" rgb1=".2 .3 .4" rgb2=".1 0.15 0.2" width="512" height="512" mark="cross" markrgb=".8 .8 .8"/>
+        <material name="plane" reflectance="0.3" texture="plane" texrepeat="1 1" texuniform="true"/>
+    </asset>
+
+    <worldbody>
+        <geom name="floor" pos="0 0 -1" size="0 0 .25" type="plane" material="plane" condim="3"/>
+        <light directional="true" diffuse=".2 .2 .2" specular="0 0 0" pos="0 0 5" dir="0 0 -1" castshadow="false"/>
+        <light directional="false" diffuse=".8 .8 .8" specular="0.3 0.3 0.3" pos="0 0 4" dir="0 0 -1"/>
+
+        <!-- car -->
+        <body name="car" pos="0 0 1">
+            <freejoint/>
+            <body name="base" pos="0 0 0.1">
+                <geom name="base" type="box" size="0.1 0.2 0.1"/>
+             </body>
+             <body name="wheel1" pos="0.15 0.15 0.01">
+                 <geom 
+                    name="wheel1" 
+                    type="cylinder" 
+                    size="0.08 0.01" 
+                    quat="1 0 1 0"
+                    solimp=".99 .99 .01"  
+                     solref=".001 1"
+                />
+                <joint name="joint1" pos="0 0 0" axis="1 0 0"/>
+            </body>
+            <body name="wheel2" pos="-0.15 0.15 0.01">
+                <geom 
+                    name="wheel2" 
+                    type="cylinder" 
+                    size="0.08 .01" 
+                    quat="1 0 1 0"
+                />
+                <joint name="joint2" pos="0 0 0" axis="-1 0 0"/>
+            </body>
+            <body name="wheel3" pos="0.15 -0.15 0.01">
+                <geom 
+                    name="wheel3" 
+                    type="cylinder" 
+                    size="0.08 .01" 
+                    quat="1 0 1 0"
+                />
+                <joint name="joint3" pos="0 0 0" axis="1 0 0"/>
+            </body>
+            <body name="wheel4" pos="-0.15 -0.15 0.01">
+                <geom 
+                    name="wheel4" 
+                    type="cylinder" 
+                    size="0.08 .01" 
+                    quat="1 0 1 0"
+                />
+                <joint name="joint4" pos="0 0 0" axis="-1 0 0"/>
+            </body>
+        </body>
+    </worldbody>
 </mujoco>
