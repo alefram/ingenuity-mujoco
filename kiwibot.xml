@@ -1,4 +1,4 @@
-<mujoco model="f1">
+<mujoco model="kiwibot v1">
     <option timestep="0.005" solver="CG" iterations="30" tolerance="1e-6"/>
     <size memory="20M"/>
 
