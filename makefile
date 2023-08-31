@@ -1,6 +1,6 @@
 
 #LINUX
-COMMON=-O2 -I$(HOME)/dev/mujoco-2.3.5/include -L$(HOME)/dev/mujoco-2.3.5/lib -pthread -Wl,-no-as-needed -Wl,-rpath,'$$ORIGIN'$(HOME)/dev/mujoco-2.3.5/lib
+COMMON=-O2 -I$(HOME)/dev/mujoco-2.3.7/include -L$(HOME)/dev/mujoco-2.3.7/lib -pthread -Wl,-no-as-needed -Wl,-rpath,'$$ORIGIN'$(HOME)/dev/mujoco-2.3.7/lib
 LIBS = -lmujoco -lglfw
 CC = gcc
 
