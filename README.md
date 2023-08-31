@@ -1,2 +1,2 @@
-# Mujoco Suspension
-Modeling a suspension system in mujoco
+# Kiwibot Mujoco
+Modeling a Kiwibot robot in mujoco
