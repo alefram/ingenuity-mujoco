@@ -1,5 +1,3 @@
-
-
 #include<stdbool.h> //for bool
 //#include<unistd.h> //for usleep
 //#include <math.h>
@@ -11,7 +9,7 @@
 #include "string.h"
 
 
-char filename[] = "suspension.xml";
+char filename[] = "kiwibot.xml";
 
 // MuJoCo data structures
 mjModel* m = NULL;                  // MuJoCo model
@@ -107,11 +105,6 @@ void scroll(GLFWwindow* window, double xoffset, double yoffset)
 // main function
 int main(int argc, const char** argv)
 {
-
-    // activate software
-    mj_activate("mjkey.txt");
-
-
     // load and compile model
     char error[1000] = "Could not load binary model";
 
@@ -199,7 +192,6 @@ int main(int argc, const char** argv)
     // free MuJoCo model and data, deactivate
     mj_deleteData(d);
     mj_deleteModel(m);
-    mj_deactivate();
 
     // terminate GLFW (crashes with Linux NVidia drivers)
     #if defined(__APPLE__) || defined(_WIN32)

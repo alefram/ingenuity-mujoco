@@ -1,0 +1,50 @@
+<mujoco model="Ingenuity">
+
+    <compiler inertiafromgeom='true' angle='radian' meshdir="assets"/>
+    <option timestep="0.01" solver="CG" iterations="30" tolerance="1e-6"/>
+
+    <visual>
+        <map force="0.1" zfar="30"/>
+        <rgba haze="0.15 0.25 0.35 1"/>
+        <quality shadowsize="2048"/>
+        <global offwidth="800" offheight="800"/>
+    </visual>
+    <asset>
+        <mesh name="mainBody" file="mhs_mainbody_v16.stl"/>
+        <mesh name="topBlades" file="mhs_topblades_v16.stl"/>
+        <mesh name="bottomBlades" file="mhs_bottomblades_v16.stl"/>
+        <mesh name="leg01Blades" file="mhs_leg01_v16.stl"/>
+        <mesh name="leg02Blades" file="mhs_leg02_v16.stl"/>
+        <mesh name="leg03Blades" file="mhs_leg03_v16.stl"/>
+        <mesh name="leg04Blades" file="mhs_leg04_v16.stl"/>
+    </asset>
+    <worldbody>
+        <!--<light directional="true" diffuse=".2 .2 .2" specular="0 0 0" pos="0 0 5" dir="0 0 -1" castshadow="false"/>-->
+        <!--<light directional="false" diffuse=".8 .8 .8" specular="0.3 0.3 0.3" pos="0 0 4" dir="0 0 -1"/>-->
+
+        <!-- robot -->
+        <!--correguir posicion de las legs-->
+        <body name="ingenuity" pos="0 0 0.4" quat="0 0 1 0">
+            <!--<freejoint/>-->
+            <geom type="mesh" mesh="mainBody" pos="0 0 0"/>
+            <body name="topBlades">
+                <geom type="mesh" mesh="topBlades" pos="0 0 -0.0675"/>
+            </body>
+            <body name="bottomBlades">
+                <geom type="mesh" mesh="bottomBlades" pos="0 0 0.0092"/>
+            </body>
+            <body name="leg01">
+                <geom type="mesh" mesh="leg01Blades" quat="1 0 0 0" pos="0.1945 -0.196 0.215"/>
+            </body>
+            <body name="leg02">
+                <geom type="mesh" mesh="leg02Blades" quat="1 0 0 0" pos="-0.196 -0.1945 0.215"/>
+            </body>
+            <body name="leg03">
+                <geom type="mesh" mesh="leg03Blades" quat="1 0 0 0" pos="-0.1945 0.196 0.215"/>
+            </body>
+            <body name="leg04">
+                <geom type="mesh" mesh="leg04Blades" quat="1 0 0 0" pos="0.196 0.1945 0.215"/>
+            </body>
+        </body>
+    </worldbody>
+</mujoco>
