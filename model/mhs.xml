@@ -1,6 +1,5 @@
 <mujoco model="Ingenuity">
-
-    <compiler inertiafromgeom='true' angle='radian' meshdir="assets"/>
+    <compiler inertiafromgeom='true' angle='radian' assetdir="assets"/>
     <option timestep="0.01" solver="CG" iterations="30" tolerance="1e-6"/>
 
     <visual>
@@ -10,6 +9,11 @@
         <global offwidth="800" offheight="800"/>
     </visual>
     <asset>
+        <texture type="2d" file="carbon.png"/> 
+        <material name="box" rgba="1 1 1 1"/>
+        <material name="blades" texture="carbon" rgba="0.3 0.3 0.3 1"/>
+        <material name="legs" rgba="0.05 0.05 0.05 0.8"/>
+
         <mesh name="mainBody" file="mhs_mainbody_v16.stl"/>
         <mesh name="topBlades" file="mhs_topblades_v16.stl"/>
         <mesh name="bottomBlades" file="mhs_bottomblades_v16.stl"/>
@@ -25,26 +29,33 @@
         <!-- robot -->
         <!--correguir posicion de las legs-->
         <body name="ingenuity" pos="0 0 0.4" quat="0 0 1 0">
-            <!--<freejoint/>-->
-            <geom type="mesh" mesh="mainBody" pos="0 0 0"/>
+            <freejoint/>
+            <geom material="box" type="mesh" mesh="mainBody" pos="0 0 0"/>
             <body name="topBlades">
-                <geom type="mesh" mesh="topBlades" pos="0 0 -0.0675"/>
+                <joint name="thrust1" pos="0 0 -0.0675"/>
+                <geom contype="0" conaffinity="0" material="blades" type="mesh" mesh="topBlades" pos="0 0 -0.0675"/>
             </body>
             <body name="bottomBlades">
-                <geom type="mesh" mesh="bottomBlades" pos="0 0 0.0092"/>
+                <joint name="thrust2" pos="0 0 0.0092"/>
+                <geom contype="0" conaffinity="0" material="blades" type="mesh" mesh="bottomBlades" pos="0 0 0.0092"/>
             </body>
             <body name="leg01">
-                <geom type="mesh" mesh="leg01Blades" quat="1 0 0 0" pos="0.1945 -0.196 0.215"/>
+                <geom material="legs" type="mesh" mesh="leg01Blades" quat="1 0 0 0" pos="0.1945 -0.196 0.215"/>
             </body>
             <body name="leg02">
-                <geom type="mesh" mesh="leg02Blades" quat="1 0 0 0" pos="-0.196 -0.1945 0.215"/>
+                <geom material="legs" type="mesh" mesh="leg02Blades" quat="1 0 0 0" pos="-0.196 -0.1945 0.215"/>
             </body>
             <body name="leg03">
-                <geom type="mesh" mesh="leg03Blades" quat="1 0 0 0" pos="-0.1945 0.196 0.215"/>
+                <geom material="legs" type="mesh" mesh="leg03Blades" quat="1 0 0 0" pos="-0.1945 0.196 0.215"/>
             </body>
             <body name="leg04">
-                <geom type="mesh" mesh="leg04Blades" quat="1 0 0 0" pos="0.196 0.1945 0.215"/>
+                <geom material="legs" type="mesh" mesh="leg04Blades" quat="1 0 0 0" pos="0.196 0.1945 0.215"/>
             </body>
         </body>
     </worldbody>
+
+    <actuator>
+        <motor name="thrust1" joint="thrust1"/>
+        <motor name="thrust2" joint="thrust2" />
+    </actuator>
 </mujoco>
