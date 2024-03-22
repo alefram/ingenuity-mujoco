@@ -1,6 +1,6 @@
 <mujoco model="Ingenuity">
-    <compiler inertiafromgeom='true' angle='radian' assetdir="assets"/>
-    <option timestep="0.01" solver="CG" iterations="30" tolerance="1e-6"/>
+    <compiler angle='radian' assetdir="assets" autolimits="true"/>
+    <option timestep="0.01"/>
 
     <visual>
         <map force="0.1" zfar="30"/>
