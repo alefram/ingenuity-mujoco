@@ -26,9 +26,13 @@
     <worldbody>
         <body name="ingenuity" pos="0 0 0.4" quat="0 0 1 0">
             <freejoint/>
-            <geom material="box" type="mesh" mesh="mainBody" pos="0 0 0"/>
+            <geom material="box" type="mesh" mesh="mainBody" pos="0 0 0"/>a
+             <!--Navigation camera TODO:Terminar de configurar--> 
+            <camera name="track" pos="0 0 0" mode="trackcom" xyaxes="0 -1 0 1 0 2"/> 
+            <!--Floor camera TODO:Terminar de configurar-->
             <camera name="track" pos="0 0 0" mode="trackcom" xyaxes="0 -1 0 1 0 2"/>
-            <site name="imu" pos="0 0 0.1"/>
+            <site name="imu" pos="0 0 0.1"/> <!-- TODO:ajustar pos -->
+            <site name="laser_rangefinder" pos="0 0 0.1"/> <!-- TODO:ajustar pos -->
             <body name="topBlades">
                 <joint name="thrust1" pos="0 0 -0.0675"/>
                 <geom contype="0" conaffinity="0" material="blades" type="mesh" mesh="topBlades" pos="0 0 -0.0675"/>
@@ -58,6 +62,7 @@
     </actuator>
 
     <sensor>
+        <rangefinder name="sensor_laser" site="laser_rangefinder"/>
         <gyro name="sensor_gyro" site="imu"/>
         <accelerometer name="sensor_acc" site="imu"/>
         <framequat name="sensor_quat" objtype="site" objname="imu"/>
