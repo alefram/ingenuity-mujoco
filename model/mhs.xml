@@ -1,5 +1,5 @@
 <mujoco model="Ingenuity">
-    <compiler angle='radian' assetdir="assets" autolimits="true"/>
+    <compiler angle="radian" assetdir="assets" autolimits="true"/>
     <option timestep="0.01" gravity="0 0 -9.81"/>
 
     <visual>
@@ -26,17 +26,16 @@
 
     <worldbody>
         <body name="ingenuity" pos="0 0 0.4" quat="0 0 1 0">
-            <camera name="nav_cam" pos="0.08 0 0.22" mode="fixed" xyaxes="0 1 0 1 -1 -1"/> 
-            <site name="imu" pos="0 0 0.15"/>
-            <site name="laser_rangefinder" pos="0 0 0.2"/>
             <freejoint/>
-            <inertial pos="0 0 0.22" mass="1800"/>
-            <geom material="box" type="mesh" mesh="mainBody" pos="0 0 0"/>a
+            <inertial pos="0 0 0.22" mass="1.8"/>
+            <geom material="box" type="mesh" mesh="mainBody" pos="0 0 0"/>
             <body name="topBlades">
-                <joint name="thrust1" pos="0 0 -0.0675"/>
+                <!--TODO:completar el joint para dar precision-->
+                <joint name="thrust1" pos="0 0 -0.0675"/> 
                 <geom contype="0" conaffinity="0" material="blades" type="mesh" mesh="topBlades" pos="0 0 -0.0675"/>
             </body>
             <body name="bottomBlades">
+                <!--TODO:completar el joint para dar precision-->
                 <joint name="thrust2" pos="0 0 0.0092"/>
                 <geom contype="0" conaffinity="0" material="blades" type="mesh" mesh="bottomBlades" pos="0 0 0.0092"/>
             </body>
@@ -52,13 +51,15 @@
             <body name="leg04">
                 <geom material="legs" type="mesh" mesh="leg04Blades" quat="1 0 0 0" pos="0.196 0.1945 0.215"/>
             </body>
+            <camera name="nav_cam" pos="0.08 0 0.22" mode="fixed" xyaxes="0 1 0 1 -1 -1"/> 
+            <site name="imu" pos="0 0 0.15"/>
+            <site name="laser_rangefinder" pos="0 0 0.2"/>
         </body>
     </worldbody>
 
     <actuator>
-        <!--TODO:mejorar los parametros de motor para dar mas precision-->
-        <motor name="thrust1" joint="thrust1"/>
-        <motor name="thrust2" joint="thrust2"/>
+        <motor name="thrust1" joint="thrust1" ctrlrange="-1 1" gear="0 0 10 0 0 0.1" />
+        <motor name="thrust2" joint="thrust2" ctrlrange="-1 1" gear="0 0 10 0 0 0.1"/>
     </actuator>
 
     <sensor>
