@@ -1,6 +1,6 @@
 <mujoco model="Ingenuity">
     <compiler angle="radian" assetdir="assets" autolimits="true"/>
-    <option timestep="0.008" gravity="0 0 -9.81" density="1.225" viscosity="1.8e-5"/>
+    <option timestep="0.008" density="1.225" viscosity="1.8e-5"/>
 
     <asset>
         <texture type="2d" file="carbon.png"/> 
@@ -18,35 +18,27 @@
     </asset>
 
     <worldbody>
-        <body name="ingenuity" pos="0 0 0.4" quat="0 0 1 0">
+        <body name="ingenuity" pos="0 0 0.3" quat="0 0 1 0">
             <freejoint/>
-            <geom material="box" type="mesh" mass="0.9" mesh="mainBody" pos="0 0 0"  contype="0" conaffinity="0"/>
-            <geom material="legs" type="mesh" mass="0.2" mesh="leg01Blades" quat="1 0 0 0" pos="0.1945 -0.196 0.215"/>
-            <geom material="legs" type="mesh" mass="0.2" mesh="leg02Blades" quat="1 0 0 0" pos="-0.196 -0.1945 0.215"/>
-            <geom material="legs" type="mesh" mass="0.2" mesh="leg03Blades" quat="1 0 0 0" pos="-0.1945 0.196 0.215"/>
-            <geom material="legs" type="mesh" mass="0.2" mesh="leg04Blades" quat="1 0 0 0" pos="0.196 0.1945 0.215"/>
-            <body name="blade1">
-                <joint name="thrust1" pos="0 0 -0.0675"/> 
-                <geom material="blades" type="mesh" mass="0.05" mesh="topBlades" euler="0 0 1" pos="0 0 -0.0675"/>
-            </body>
-            <body name="blade2">
-                <joint name="thrust2" pos="0 0 0.0092"/>
-                <geom material="blades" type="mesh" mass="0.05" mesh="bottomBlades" pos="0 0 0.0092"/>
-            </body>
-                
+            <geom material="box" type="mesh" mass="0.9" mesh="mainBody" pos="0 0 0"/>
+            <geom material="legs" type="mesh" mass="0.2" mesh="leg01Blades"  pos="0.1945 -0.196 0.215"/>
+            <geom material="legs" type="mesh" mass="0.2" mesh="leg02Blades"  pos="-0.196 -0.1945 0.215"/>
+            <geom material="legs" type="mesh" mass="0.2" mesh="leg03Blades"  pos="-0.1945 0.196 0.215"/>
+            <geom material="legs" type="mesh" mass="0.2" mesh="leg04Blades"  pos="0.196 0.1945 0.215"/>
+            <geom material="blades" type="mesh" mass="0.05" mesh="topBlades" euler="0 0 2" pos="0 0 -0.0675"/>
+            <geom material="blades" type="mesh" mass="0.05" mesh="bottomBlades" pos="0 0 0.0092"/>
+
             <camera name="nav_cam" pos="0.08 0 0.22" mode="fixed" xyaxes="0 1 0 1 -1 -1"/> 
             <site name="imu" pos="0 0 0.15"/>
             <site name="laser_rangefinder" pos="0 0 0.2"/>
-            <!--<site name="thrust1" pos="0 0 -0.0675"/>-->
-            <!--<site name="thrust2" pos="0 0  0.0092"/>-->
+            <site name="thrust1" pos="0 0 -0.0675"/>
+            <site name="thrust2" pos="0 0 0.0092"/>
         </body>
     </worldbody>
 
     <actuator>
-        <motor name="thrust1" joint="thrust1" ctrlrange="0 1" gear="10 0 0 -10 0 0" />
-        <motor name="thrust2" joint="thrust2" ctrlrange="0 1" gear="10 0 0 -10 0 0"/>
-        <!--<motor name="thrust1" site="thrust1" ctrlrange="0 1" gear="0 0 -100 0 0 0" />-->
-        <!--<motor name="thrust2" site="thrust2" ctrlrange="0 1" gear="0 0 -100 0 0 0"/>-->
+        <motor name="thrust1" site="thrust1" ctrlrange="-1 1" gear="0 0 -40 0 0 0"/>
+        <motor name="thrust2" site="thrust2" ctrlrange="-1 1" gear="0 0 -40 0 0 0"/>
     </actuator>
 
     <sensor>
