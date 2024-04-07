@@ -1,6 +1,21 @@
 <mujoco model="Ingenuity">
-    <compiler angle="radian" assetdir="assets" autolimits="true"/>
+    <compiler assetdir="assets" autolimits="true"/>
     <option timestep="0.008" density="1.225" viscosity="1.8e-5"/>
+
+    <default>
+        <default class="ingenuity">
+            <geom mass="0"/>
+            <default class="visual">
+                <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+            </default>
+            <default class="collision">
+                <geom group="3" type="box"/>
+                <default class="rotor">
+                    <geom type="ellipsoid"/>
+                </default>
+            </default>
+        </default>
+    </default>
 
     <asset>
         <texture type="2d" file="carbon.png"/> 
@@ -18,27 +33,142 @@
     </asset>
 
     <worldbody>
-        <body name="ingenuity" pos="0 0 0.3" quat="0 0 1 0">
+        <body name="ingenuity" pos="0 0 0.5" childclass="ingenuity">
             <freejoint/>
-            <geom material="box" type="mesh" mass="0.9" mesh="mainBody" pos="0 0 0"/>
-            <geom material="legs" type="mesh" mass="0.2" mesh="leg01Blades"  pos="0.1945 -0.196 0.215"/>
-            <geom material="legs" type="mesh" mass="0.2" mesh="leg02Blades"  pos="-0.196 -0.1945 0.215"/>
-            <geom material="legs" type="mesh" mass="0.2" mesh="leg03Blades"  pos="-0.1945 0.196 0.215"/>
-            <geom material="legs" type="mesh" mass="0.2" mesh="leg04Blades"  pos="0.196 0.1945 0.215"/>
-            <geom material="blades" type="mesh" mass="0.05" mesh="topBlades" euler="0 0 2" pos="0 0 -0.0675"/>
-            <geom material="blades" type="mesh" mass="0.05" mesh="bottomBlades" pos="0 0 0.0092"/>
+            <geom 
+                class="visual" 
+                material="box" 
+                mesh="mainBody" 
+                pos="0 0 0" 
+                quat="0 0 1 0"
+            />
+            <geom class="collision" mass="0.5"  size="0.084 0.097 0.065" pos="0 0 -0.145"/>
+            <geom class="collision" mass="0.25" size="0.04 0.04 0.10" pos="0 0 0.03"/>
+            <geom class="collision" mass="0.25" size="0.08 0.21 0.001" pos="0 0 0.14"/>
+            <body name="leg2">
+                <geom 
+                    class="visual"
+                    material="legs" 
+                    mesh="leg02Blades" 
+                    pos="0.196 -0.1945 -0.215" 
+                    quat="0 0 1 0"
+                />
+                <geom 
+                    class="collision" 
+                    mass="0.05" 
+                    size="0.02 0.015 0.01" 
+                    pos="0.293 -0.29 -0.329"
+                    quat="0.39 0 0 1"
+                /> 
+                <geom 
+                    class="collision" 
+                    mass="0.05" 
+                    size="0.01 0.01 0.14" 
+                    pos="0.196 -0.1945 -0.225"
+                    quat="-0.4 -0.2 0.45 1"
+                /> 
+            </body>
+            <body name="leg1">
+                <geom 
+                    class="visual"
+                    material="legs" 
+                    mesh="leg01Blades" 
+                    pos="-0.1945 -0.196 -0.215" 
+                    quat="0 0 1 0"
+                />
+                <geom 
+                    class="collision" 
+                    mass="0.05" 
+                    size="0.02 0.015 0.01" 
+                    pos="-0.293 -0.29 -0.329"
+                    quat="0.39 0 0 1"
+                /> 
+                <geom 
+                    class="collision" 
+                    mass="0.05" 
+                    size="0.01 0.01 0.14" 
+                    pos="-0.196 -0.1945 -0.225"
+                    quat="0.4 0.2 0.45 1"
+                /> 
+            </body>
+            <body name="leg3">
+                <geom 
+                    class="visual"
+                    material="legs" 
+                    mesh="leg03Blades"  
+                    pos="0.1945 0.196 -0.215" 
+                    quat="0 0 1 0"
+                />
+                <geom 
+                    class="collision" 
+                    mass="0.05" 
+                    size="0.02 0.015 0.01" 
+                    pos="0.293 0.29 -0.329"
+                    quat="0.39 0 0 1"
+                /> 
+                <geom 
+                    class="collision" 
+                    mass="0.05" 
+                    size="0.01 0.01 0.14" 
+                    pos="0.196 0.1945 -0.225"
+                    quat="0.4 -0.2 -0.45 1"
+                /> 
+            </body>
+            <body name="leg4">
+                <geom 
+                    class="visual"
+                    material="legs" 
+                    mesh="leg04Blades"  
+                    pos="-0.196 0.1945 -0.215" 
+                    quat="0 0 1 0"
+                />
+                <geom 
+                    class="collision" 
+                    mass="0.05" 
+                    size="0.02 0.015 0.01" 
+                    pos="-0.293 0.29 -0.329"
+                    quat="0.39 0 0 1"
+                /> 
+                <geom 
+                    class="collision" 
+                    mass="0.05" 
+                    size="0.01 0.01 0.14" 
+                    pos="-0.196 0.1945 -0.225"
+                    quat="-0.4 0.2 -0.45 1"
+                /> 
+            </body>
+            <body name="blades" quat="0 0 1 0">
+                <geom 
+                    class="visual" 
+                    material="blades" 
+                    mesh="topBlades" 
+                    pos="0 0 -0.0675"
+                />
+                <geom 
+                    class="visual" 
+                    material="blades" 
+                    mesh="bottomBlades" 
+                    pos="0 0 0.0092"
+                    quat="0.6 0 0 1"
+                />
+                <geom class="rotor" mass="0.2" pos="0 0 -0.0675" size="0.64 0.64 0.02"/>
+                <geom class="rotor" mass="0.2" pos="0 0 0.0092" size="0.64 0.64 0.02"/>
+                <site name="thrust1" pos="0 0 -0.0830" quat="0 0 1 0"/>
+                <site name="thrust2" pos="0 0 0.0150" quat="0 0 1 0"/>
+            </body>
 
-            <camera name="nav_cam" pos="0.08 0 0.22" mode="fixed" xyaxes="0 1 0 1 -1 -1"/> 
-            <site name="imu" pos="0 0 0.15"/>
-            <site name="laser_rangefinder" pos="0 0 0.2"/>
-            <site name="thrust1" pos="0 0 -0.0675"/>
-            <site name="thrust2" pos="0 0 0.0092"/>
+            <camera name="nav_cam" pos="0.08 0 -0.22" mode="fixed" xyaxes="0 -1 0 1 -1 1"/> 
+            <site name="imu"/>
+            <site name="laser_rangefinder" pos="0 0 -0.22" quat="0 0 1 0"/>
+            <site name="thrustxy"/>
         </body>
     </worldbody>
 
     <actuator>
-        <motor name="thrust1" site="thrust1" ctrlrange="-1 1" gear="0 0 -40 0 0 0"/>
-        <motor name="thrust2" site="thrust2" ctrlrange="-1 1" gear="0 0 -40 0 0 0"/>
+        <motor name="thrust1" site="thrust1" ctrlrange="-1 1" gear="0 0 50 0 0 0"/>
+        <motor name="thrust2" site="thrust2" ctrlrange="-1 1" gear="0 0 50 0 0 0"/>
+        <motor name="x_movement" site="thrustxy" ctrlrange="-1 1" gear="0 0 0 0.09 0 0"/>
+        <motor name="y_movement" site="thrustxy" ctrlrange="-1 1" gear="0 0 0 0 0.09 0"/>
     </actuator>
 
     <sensor>
